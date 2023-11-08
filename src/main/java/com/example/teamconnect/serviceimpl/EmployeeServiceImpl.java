@@ -93,6 +93,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             ResponseClass responseClass = new ResponseClass(HttpStatus.OK, StringConstants.LOGIN_SUCCESS, generatedToken);
             return new ResponseEntity<ResponseClass>(responseClass, HttpStatus.OK);
         } 
+        return null;
     }
 
     public ResponseEntity<ResponseClass> signUpMasterUser(EmployeeDto employeeDto, HttpServletRequest request) throws DataAlreadyExistsException {

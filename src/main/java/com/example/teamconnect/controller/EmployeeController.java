@@ -29,7 +29,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseClass> login(@RequestBody EmployeeDto employeeDto) throws LoginFailedException {
+    public ResponseEntity<ResponseClass> login(@RequestBody EmployeeDto employeeDto){
         return employeeService.login(employeeDto);
     }
 

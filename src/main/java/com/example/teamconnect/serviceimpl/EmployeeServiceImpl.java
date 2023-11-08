@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private String masterToken = "eeeeeeeeeeqqqqqqaaaaakdjkhdskjsjkhdkjshdkhskhksjdkjdcsbshxQHWWHKJWDKJBSCHAV";
 
     @Override
-    public ResponseEntity<ResponseClass> registeration(EmployeeDto employeeDto,HttpServletRequest request) throws DataAlreadyExistsException, LoginFailedException {
+    public ResponseEntity<ResponseClass> registeration(EmployeeDto employeeDto,HttpServletRequest request) throws DataAlreadyExistsException{
        /* Employee employee = new Employee();
         employee = employee.convertToEntity(employeeDto);*/
 
@@ -83,7 +83,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    public ResponseEntity<ResponseClass> login(EmployeeDto employeeDto,HttpServletRequest request) throws LoginFailedException {
+    public ResponseEntity<ResponseClass> login(EmployeeDto employeeDto,HttpServletRequest request){
         Employee employee = employeeRepository.findByEmpIdOrEmailAndPassword(employeeDto.getEmpId(), employeeDto.getEmail(), employeeDto.getPassword());
         if (employee != null) {
             EmployeeDto employeeDto1 = employeeDto.convertToDto(employee);
@@ -92,9 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             generatedToken.put("accessToken", token);
             ResponseClass responseClass = new ResponseClass(HttpStatus.OK, StringConstants.LOGIN_SUCCESS, generatedToken);
             return new ResponseEntity<ResponseClass>(responseClass, HttpStatus.OK);
-        } else {
-            throw new LoginFailedException();
-        }
+        } 
     }
 
     public ResponseEntity<ResponseClass> signUpMasterUser(EmployeeDto employeeDto, HttpServletRequest request) throws DataAlreadyExistsException {
@@ -108,9 +106,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 EmployeeDto employeeDto1 = new EmployeeDto().convertToDto(employee);
                 ResponseClass responseClass = new ResponseClass(HttpStatus.OK, StringConstants.SIGN_UP_SUCCESS, employeeDto1);
                 return new ResponseEntity<ResponseClass>(responseClass, HttpStatus.OK);
-            } else {
-                throw new DataAlreadyExistsException();
-            }
+            } 
 
         }
         return null;

@@ -98,6 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public ResponseEntity<ResponseClass> signUpMasterUser(EmployeeDto employeeDto, HttpServletRequest request) throws DataAlreadyExistsException {
         String master = request.getHeader("MasterCode");
+        int add=0;
         if (master.equals(masterToken)) {
             List<Employee> allEmployee = employeeRepository.findAll();
             if (allEmployee.isEmpty()) {

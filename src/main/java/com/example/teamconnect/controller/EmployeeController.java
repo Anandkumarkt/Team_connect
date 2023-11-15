@@ -28,6 +28,12 @@ public class EmployeeController {
 
     }
 
+    @PostMapping("/signUp")
+    public ResponseEntity<ResponseClass> signUp(@RequestBody EmployeeDto employeeDto,HttpServletRequest request) throws DataAlreadyExistsException {
+        return employeeService.registeration(employeeDto,request);
+
+    }
+
     @PostMapping("/login")
     public ResponseEntity<ResponseClass> login(@RequestBody EmployeeDto employeeDto){
         return employeeService.login(employeeDto);

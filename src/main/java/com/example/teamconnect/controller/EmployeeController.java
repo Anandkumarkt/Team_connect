@@ -22,16 +22,15 @@ public class EmployeeController {
     EmployeeService employeeService;
 
 
-    @PostMapping("/signUp")
+    /*@PostMapping("/signUp")
     public ResponseEntity<ResponseClass> signUp(@RequestBody EmployeeDto employeeDto,HttpServletRequest request) throws DataAlreadyExistsException {
         return employeeService.registeration(employeeDto,request);
 
-    }
+    }*/
 
     @PostMapping("/signUp")
-    public ResponseEntity<ResponseClass> signUp(@RequestBody EmployeeDto employeeDto,HttpServletRequest request) throws DataAlreadyExistsException {
-        return employeeService.registeration(employeeDto,request);
-
+    public int signUp(@RequestBody EmployeeDto employeeDto,HttpServletRequest request) throws DataAlreadyExistsException {
+        return 10;
     }
 
     @PostMapping("/login")

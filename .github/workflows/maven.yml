@@ -56,4 +56,3 @@ jobs:
       - name: Build and run Docker
         run: |
           sudo docker build -t my-image .
-          sudo docker run my-image

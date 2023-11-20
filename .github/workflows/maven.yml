@@ -50,3 +50,4 @@ jobs:
       -  name: Build and run Docker
          run: |
            echo 'vvdn123' | sudo -S docker build -t my_first_image .
+           echo 'vvdn123' | sudo -S docker run my_first_image

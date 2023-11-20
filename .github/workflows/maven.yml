@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: TeamConnect-0.0.1-SNAPSHOT
-          path: target/*.war
+          path: target/TeamConnect-0.0.1-SNAPSHOT.war
 
       -  name: Build Docker image
          run: |

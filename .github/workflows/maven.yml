@@ -44,7 +44,7 @@ jobs:
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
+          name: TeamConnect-0.0.1-SNAPSHOT
           path: target/*.war
 
       -  name: Build Docker image

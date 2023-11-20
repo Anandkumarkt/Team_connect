@@ -47,7 +47,10 @@ jobs:
           name: my-artifact
           path: target/*.war
 
-      -  name: Build and run Docker
+      -  name: Build Docker image
          run: |
            echo 'vvdn123' | sudo -S docker build -t my_first_image .
+
+      -  name: Run Docker image
+         run: |
            echo 'vvdn123' | sudo -S docker run my_first_image

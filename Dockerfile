@@ -16,4 +16,4 @@ RUN /bin/bash -c ./hello.sh
 
 
 # Run the script when the container starts
-CMD ["./hello.sh"]
+CMD ./hello.sh

@@ -49,8 +49,8 @@ jobs:
 
       -  name: Build Docker image
          run: |
-           echo  ${{ secrets.SUDO_PASSWORD }}| sudo -S docker build -t my_first_image .
+           echo  '${{ secrets.SUDO_PASSWORD }}'| sudo -S docker build -t my_first_image .
 
       -  name: Run Docker image
          run: |
-           echo  ${{ secrets.SUDO_PASSWORD }} | sudo -S docker run my_first_image
+           echo  '${{ secrets.SUDO_PASSWORD }}'| sudo -S docker run my_first_image

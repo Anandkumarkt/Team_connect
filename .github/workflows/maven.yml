@@ -15,8 +15,12 @@ jobs:
   my_first_job:
     name: Build
     runs-on: [self-hosted, linux]
+    environment: 
+      name: Development
+      url: http://172.25.3.150/#/admin
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Set up JDK 11

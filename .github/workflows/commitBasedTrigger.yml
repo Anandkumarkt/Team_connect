@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: TeamConnect-0.0.1-SNAPSHOT
-          path: target/anand.war
+          path: target/TeamConnect-0.0.1-SNAPSHOT.war
         
   NonProdStaging:
     name: Deploy to NonProd Jump 

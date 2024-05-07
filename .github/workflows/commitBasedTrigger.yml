@@ -26,7 +26,7 @@ jobs:
       url: 'http://www.google.com'
     steps:
       - name: Execute shell script
-        run: ./myscript.sh
+        run: src/main/java/com/example/teamconnect/myscript.sh
     
   DeployDev:
     name: Deploy to Dev 

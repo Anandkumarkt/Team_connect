@@ -22,7 +22,7 @@ jobs:
     needs: [Build]
     runs-on: ubuntu-latest
     environment: 
-      name: Development
+      name: Development-CBT
       url: 'http://www.google.com'
     steps:
       - name: Deploy
@@ -45,7 +45,7 @@ jobs:
     needs: [DeployStaging]
     runs-on: ubuntu-latest
     environment: 
-      name: Production
+      name: Production-CBT
       url: 'http://www.myapp.com'
     steps:
       - name: Deploy

@@ -32,7 +32,9 @@ jobs:
       url: 'http://www.google.com'
     steps:
       - name: Execute shell script
-        run: sh myscript.sh
+        run: | 
+          chmod +x myscript.sh
+          sh myscript.sh
     
   DeployDev:
     name: Deploy to Dev 

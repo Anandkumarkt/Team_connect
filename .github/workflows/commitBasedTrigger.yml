@@ -25,8 +25,8 @@ jobs:
       name: JumpServer-NP
       url: 'http://www.google.com'
     steps:
-      - name: Deploy
-        run: echo I am NonProd Staging deploying! 
+      - name: Execute shell script
+        run: ./myscript.sh
     
   DeployDev:
     name: Deploy to Dev 

@@ -26,7 +26,7 @@ jobs:
       url: 'http://www.google.com'
     steps:
       - name: Deploy
-        run: echo I am deploying! 
+        run: echo I am NonProd Staging deploying! 
     
   DeployDev:
     name: Deploy to Dev 

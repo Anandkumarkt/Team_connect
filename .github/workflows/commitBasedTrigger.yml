@@ -21,6 +21,11 @@ jobs:
           java-version: '8'
       - name: Build with Maven
         run: mvn clean install
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: TeamConnect-0.0.1-SNAPSHOT
+          path: target/anand.war
         
   NonProdStaging:
     name: Deploy to NonProd Jump 

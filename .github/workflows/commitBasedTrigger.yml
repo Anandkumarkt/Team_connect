@@ -33,8 +33,8 @@ jobs:
     steps:
       - name: Execute shell script
         run: |
-          chmod +x myscript.sh
-          sh myscript.sh
+          chmod +x ./myscript.sh
+          sh ./myscript.sh
     
   DeployDev:
     name: Deploy to Dev 

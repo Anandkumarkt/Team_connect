@@ -21,6 +21,7 @@ jobs:
           java-version: '8'
       - name: Build with Maven
         run: mvn clean install
+    
         
   NonProdStaging:
     name: Deploy to NonProd Jump 
@@ -32,9 +33,7 @@ jobs:
       url: 'http://www.google.com'
     steps:
       - name: Execute shell script
-        run: | 
-          chmod +x myscript.sh
-          sh myscript.sh
+        run: sh myscript.sh
     
   DeployDev:
     name: Deploy to Dev 

@@ -34,7 +34,7 @@ jobs:
     needs: [Build]
     runs-on: ubuntu-latest
     environment: 
-      name: JumpServer
+      name: JumpServer-Prod
       url: 'http://test.myapp.com'
     steps:
       - name: Deploy

@@ -19,8 +19,11 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '8'
-      - name: Build with Maven
-        run: mvn clean install
+
+      - name: Execute shell script
+        run: sh myscript.sh
+      #- name: Build with Maven
+       # run: mvn clean install
     
         
   NonProdStaging:

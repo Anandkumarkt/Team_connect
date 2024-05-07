@@ -26,9 +26,7 @@ jobs:
       url: 'http://www.google.com'
     steps:
       - name: Execute shell script
-        run: |
-          chmod 777 myscript.sh
-          sh myscript.sh
+        run: sh myscript.sh
     
   DeployDev:
     name: Deploy to Dev 

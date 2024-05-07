@@ -11,7 +11,6 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Set up JDK
@@ -32,7 +31,8 @@ jobs:
     needs: [Build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Execute shell script
         run: sh myscript.sh
     environment: 
@@ -48,6 +48,8 @@ jobs:
       name: Development-CBT
       url: 'http://www.google.com'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Deploy
         run: echo I am deploying! 
     
@@ -60,6 +62,8 @@ jobs:
       name: JumpServer-Prod
       url: 'http://test.myapp.com'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Deploy
         run: echo I am deploying! 
             
@@ -71,5 +75,7 @@ jobs:
       name: Production-CBT
       url: 'http://www.myapp.com'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Deploy
         run: echo I am deploying!

@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
+#To build the war in sandbox
   Build:
     runs-on: ubuntu-latest
     steps:
@@ -18,9 +19,6 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '8'
-
-      - name: Execute shell script
-        run: sh myscript.sh
       - name: Build with Maven
         run: mvn clean install
       - name: Upload WAR artifact
@@ -28,43 +26,7 @@ jobs:
         with:
           name: my-war-artifact
           path: target/*.war
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: my-war-artifact
-          path: ./target
-      - name: ls
-        run: |
-          pwd
-          ls /home/runner/work/Team_connect/Team_connect/target/
-    
-        
-  NonProdStaging:
-    name: Deploy to NonProd Jump 
-    if: github.event.ref == 'refs/heads/main'
-    needs: [Build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Execute shell script
-        run: sh myscript.sh
-    environment: 
-      name: JumpServer-NP
-      url: 'http://www.google.com'
-    
-  DeployDev:
-    name: Deploy to Dev 
-    #if: github.event.ref == 'refs/heads/main'
-    needs: [NonProdStaging]
-    runs-on: ubuntu-latest
-    environment: 
-      name: Development-CBT
-      url: 'http://www.google.com'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Local Deployment
+      - name: Copy war file
         run: |
           pwd
           cd /home/runner/work/Team_connect/Team_connect/target/
@@ -81,7 +43,38 @@ jobs:
           cp /home/vvdn/Documents/*.war /opt/Tomcat/webapps
           ./startup.sh'
     
+        
+  NonProdStaging:
+  #To copy the build war from sandbox to Non prod Jump box
+    name: Deploy to NonProd Jump 
+    if: github.event.ref == 'refs/heads/main'
+    needs: [Build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Execute shell script
+        run: sh myscript.sh
+    environment: 
+      name: JumpServer-NP
+      url: 'http://www.google.com'
+    
+  DeployDev:
+  #To deploy the war in development server
+    name: Deploy to Dev 
+    #if: github.event.ref == 'refs/heads/main'
+    needs: [NonProdStaging]
+    runs-on: ubuntu-latest
+    environment: 
+      name: Development-CBT
+      url: 'http://www.google.com'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+    
   DeployStaging:
+  #To copy the war from development server to prod Jump box
     name: Deploy to Staging 
     #if: github.event.ref == 'refs/heads/main'
     needs: [DeployDev]
@@ -96,6 +89,7 @@ jobs:
         run: echo I am deploying! 
             
   DeployProd:
+  #To deploy the war in development server
     name: Deploy to Production 
     needs: [DeployStaging]
     runs-on: ubuntu-latest

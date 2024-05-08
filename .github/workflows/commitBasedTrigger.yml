@@ -28,7 +28,9 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p /home/runner/.ssh
-          ls /home/runner/.ssh
+          echo "${{secrets.PRIVATEKEY}}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 172.21.247.5 >> ~/.ssh/known_hosts
       - name: Copy war file
         run: scp -i ~/.ssh/id_rsa target/*.war vvdn@$172.21.247.5:/home/vvdn/
     

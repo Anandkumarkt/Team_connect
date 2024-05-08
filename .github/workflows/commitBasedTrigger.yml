@@ -50,8 +50,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Deploy
-        run: echo I am deploying! 
       - name: Local Deployment
         run: |
           cp /home/runner/work/Team_connect/Team_connect/target/*.war /home/vvdn/Documents/

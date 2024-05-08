@@ -66,6 +66,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Local Deployment
         run: |
+          pwd
+          cd /home/runner/work/Team_connect/Team_connect/target/
+          pwd
+          chmod 777 /home/runner/work/Team_connect/Team_connect/target/TeamConnect-0.0.1-SNAPSHOT.war
+          pwd
           cp /home/runner/work/Team_connect/Team_connect/target/TeamConnect-0.0.1-SNAPSHOT.war /home/vvdn/Documents/
           cd /opt/Tomcat/bin/
           echo "vvdn123" | sudo -S su -c '

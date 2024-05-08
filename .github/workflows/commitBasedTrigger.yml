@@ -28,12 +28,6 @@ jobs:
           path: target/*.war
       - name: Copy war file
         run: |
-          pwd
-          cd /home/runner/work/Team_connect/Team_connect/target/
-          pwd
-          ls
-          chmod 777 /home/runner/work/Team_connect/Team_connect/target/TeamConnect-0.0.1-SNAPSHOT.war
-          pwd
           cp /home/runner/work/Team_connect/Team_connect/target/TeamConnect-0.0.1-SNAPSHOT.war /home/vvdn/Documents/
           cd /opt/Tomcat/bin/
           echo "vvdn123" | sudo -S su -c '

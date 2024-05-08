@@ -23,6 +23,11 @@ jobs:
         run: sh myscript.sh
       - name: Build with Maven
         run: mvn clean install
+      - name: Upload WAR artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-war-artifact
+          path: target/*.war
     
         
   NonProdStaging:

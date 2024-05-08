@@ -54,7 +54,7 @@ jobs:
         run: echo I am deploying! 
       - name: Local Deployment
         run: |
-          cp /home/runner/.m2/repository/com/example/TeamConnect/0.0.1-SNAPSHOT/*.war /home/vvdn/Documents/
+          cp /home/runner/work/Team_connect/Team_connect/target/*.war /home/vvdn/Documents/
           cd /opt/Tomcat/bin/
           echo "vvdn123" | sudo -S su -c '
           ./shutdown.sh    

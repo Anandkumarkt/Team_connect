@@ -12,6 +12,9 @@ jobs:
   JumpBox:
     if: github.event.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: 
+      name: JumpServer-NP
+      url: 'http://www.google.com'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -24,8 +27,7 @@ jobs:
         run: mvn clean install
       - name: Copy war file
         run: |
-          echo "vvdn123" | sudo -S su -c '
-          scp target/*.war vvdn@$172.21.247.5:/home/vvdn/'
+          echo "vvdn123" | sudo -S scp target/*.war vvdn@$172.21.247.5:/home/vvdn/
     
   DeployDev:
   #To deploy the war in development server

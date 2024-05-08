@@ -8,8 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-#To build the war in sandbox
-  Build:
+#To build the war in Jump box
+  JumpBox:
+    if: github.event.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,43 +22,16 @@ jobs:
           java-version: '8'
       - name: Build with Maven
         run: mvn clean install
-      - name: Upload WAR artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-war-artifact
-          path: target/*.war
       - name: Copy war file
         run: |
-          cp /home/runner/work/Team_connect/Team_connect/target/TeamConnect-0.0.1-SNAPSHOT.war /home/vvdn/Documents/
-          cd /opt/Tomcat/bin/
           echo "vvdn123" | sudo -S su -c '
-          ./shutdown.sh    
-          pwd
-          sleep 30
-          cp /home/vvdn/Documents/*.war /opt/Tomcat/webapps
-          ./startup.sh'
-    
-        
-  NonProdStaging:
-  #To copy the build war from sandbox to Non prod Jump box
-    name: Deploy to NonProd Jump 
-    if: github.event.ref == 'refs/heads/main'
-    needs: [Build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Execute shell script
-        run: sh myscript.sh
-    environment: 
-      name: JumpServer-NP
-      url: 'http://www.google.com'
+          scp target/*.war vvdn@$172.21.247.5:/home/vvdn/'
     
   DeployDev:
   #To deploy the war in development server
     name: Deploy to Dev 
     #if: github.event.ref == 'refs/heads/main'
-    needs: [NonProdStaging]
+    needs: [JumpBox]
     runs-on: ubuntu-latest
     environment: 
       name: Development-CBT
@@ -65,6 +39,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Execute shell script
+        run: sh myscript.sh
       
     
   DeployStaging:
@@ -83,7 +59,7 @@ jobs:
         run: echo I am deploying! 
             
   DeployProd:
-  #To deploy the war in development server
+  #To deploy the war in Production server
     name: Deploy to Production 
     needs: [DeployStaging]
     runs-on: ubuntu-latest

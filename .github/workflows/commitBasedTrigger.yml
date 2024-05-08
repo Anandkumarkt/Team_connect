@@ -52,6 +52,16 @@ jobs:
         uses: actions/checkout@v2
       - name: Deploy
         run: echo I am deploying! 
+      - name: Local Deployment
+        run: |
+          cp target/*.war /home/vvdn/Documents/
+          cd /opt/Tomcat/bin/
+          echo "vvdn123" | sudo -S su -c '
+          ./shutdown.sh    
+          pwd
+          sleep 30
+          cp /home/vvdn/Documents/*.war /opt/Tomcat/webapps
+          ./startup.sh'
     
   DeployStaging:
     name: Deploy to Staging 

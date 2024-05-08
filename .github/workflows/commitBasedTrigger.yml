@@ -33,6 +33,10 @@ jobs:
         with:
           name: my-war-artifact
           path: ./target
+      - name: ls
+        run: |
+          pwd
+          ls /home/runner/work/Team_connect/Team_connect/target/
     
         
   NonProdStaging:

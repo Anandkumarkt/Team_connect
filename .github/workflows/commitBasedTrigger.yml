@@ -27,7 +27,6 @@ jobs:
         run: mvn clean install
       - name: Configure SSH
         run: |
-          #ls ~/.ssh
           mkdir /home/runner/.ssh
           echo "${{secrets.PRIVATEKEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa

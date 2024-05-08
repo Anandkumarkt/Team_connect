@@ -25,9 +25,14 @@ jobs:
           java-version: '8'
       - name: Build with Maven
         run: mvn clean install
-      - name: Copy war file
+      - name: Configure SSH
         run: |
-          echo "vvdn123" | sudo -S scp target/*.war vvdn@$172.21.247.5:/home/vvdn/
+          mkdir -p ~/.ssh
+          echo "${{secrets.PRIVATEKEY}}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 172.21.247.5 >> ~/.ssh/known_hosts
+      - name: Copy war file
+        run: scp -i ~/.ssh/id_rsa target/*.war vvdn@$172.21.247.5:/home/vvdn/
     
   DeployDev:
   #To deploy the war in development server

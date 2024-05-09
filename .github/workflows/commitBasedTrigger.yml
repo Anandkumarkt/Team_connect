@@ -30,7 +30,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
       - name: Copy war file
-        run: scp -i ~/.ssh/id_rsa target/*.war vvdn@$192.168.126.63:/home/vvdn/logs
+        run: scp -i ~/.ssh/id_rsa target/*.war vvdn@192.168.126.63:/home/vvdn/logs
     
   DeployDev:
   #To deploy the war in development server

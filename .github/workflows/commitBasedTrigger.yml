@@ -64,7 +64,7 @@ jobs:
           script: | 
             pwd
             mkdir /home/vvdn/example_folder
-            echo "Folder 'example_folder' created successfully."  
+            echo "Folder 'example_folder' created successfully.  "  
             cp /home/vvdn/logs/*.war /home/vvdn/Documents/apache/apache-tomcat-9.0.73/webapps/
             
   DeployStaging:

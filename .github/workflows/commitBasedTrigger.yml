@@ -75,4 +75,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Deploy
-        run: echo I am deploying!
+        run: echo I am deploying

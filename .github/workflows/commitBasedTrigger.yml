@@ -43,7 +43,7 @@ jobs:
     name: Deploy to Dev 
     #if: github.event.ref == 'refs/heads/main'
     needs: [JumpBox]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     environment: 
       name: Development-CBT
       url: 'http://www.google.com'
@@ -72,7 +72,7 @@ jobs:
     name: Deploy to Staging 
     #if: github.event.ref == 'refs/heads/main'
     needs: [DeployDev]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     environment: 
       name: JumpServer-Prod
       url: 'http://test.myapp.com'
@@ -86,7 +86,7 @@ jobs:
   #To deploy the war in Production server
     name: Deploy to Production 
     needs: [DeployStaging]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     environment: 
       name: Production-CBT
       url: 'http://www.myapp.com'

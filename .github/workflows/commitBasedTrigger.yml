@@ -61,7 +61,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATEKEY }}
           command_timeout: 30m
           script: | 
-            mkdir example_folder
+            mkdir /home/vvdn/example_folder
             echo "Folder 'example_folder' created successfully."  
             cd /home/vvdn/Documents/apache/apache-tomcat-9.0.73/bin
             ls

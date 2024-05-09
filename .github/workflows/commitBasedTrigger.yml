@@ -11,7 +11,7 @@ jobs:
 #To build the war in Jump box
   JumpBox:
     if: github.event.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     environment: 
       name: JumpServer-NP
       url: 'http://www.google.com'
@@ -23,6 +23,12 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '8'
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
       - name: Build with Maven
         run: mvn clean install
       - name: Configure SSH

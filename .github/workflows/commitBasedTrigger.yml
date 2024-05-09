@@ -58,7 +58,8 @@ jobs:
           host: 192.168.126.63
           port: 22
           username: vvdn
-          key: ${{ secrets.SSH_PRIVATEKEY }}
+          password : ${{secrets.PASSWORD}}
+          #key: ${{ secrets.SSH_PRIVATEKEY }}
           command_timeout: 30m
           script: | 
             pwd

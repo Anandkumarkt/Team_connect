@@ -34,7 +34,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.PRIVATEKEY }}
       - name: Copy war file
-        run: scp -i /root/.ssh/id_rsa target/*.war vvdn@192.168.126.63:/home/vvdn/logs
+        #run: scp -i /root/.ssh/id_rsa target/*.war vvdn@192.168.126.63:/home/vvdn/logs
+        run:  |
+          echo "Vickey\$123" | sudo -S scp target/*.war vvdn@$192.168.126.63:/home/vvdn/logs
     
   DeployDev:
   #To deploy the war in development server

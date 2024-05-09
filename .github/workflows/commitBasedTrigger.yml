@@ -69,7 +69,7 @@ jobs:
             ./shutdown.sh
             sleep 30
             cp /home/vvdn/logs/*.war /home/vvdn/Tomcat/apache-tomcat-9.0.46/webapps
-            ./start.sh
+            ./startup.sh
             
   DeployStaging:
   #To copy the war from development server to prod Jump box

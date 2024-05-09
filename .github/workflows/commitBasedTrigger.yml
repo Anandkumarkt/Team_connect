@@ -58,7 +58,7 @@ jobs:
           host: 192.168.126.63
           port: 22
           username: vvdn
-          key: ${{ secrets.PRIVATEKEY }}
+          key: ${{ secrets.SSH_PRIVATEKEY }}
           command_timeout: 30m
           script: | 
             mkdir example_folder

@@ -61,14 +61,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATEKEY }}
           command_timeout: 30m
           script: | 
+            pwd
             mkdir /home/vvdn/example_folder
             echo "Folder 'example_folder' created successfully."  
-            cd /home/vvdn/Documents/apache/apache-tomcat-9.0.73/bin
-            ls
-            ./shutdown.sh
-            sleep 30
             cp /home/vvdn/logs/*.war /home/vvdn/Documents/apache/apache-tomcat-9.0.73/webapps/
-            ./startup.sh
+            
   DeployStaging:
   #To copy the war from development server to prod Jump box
     name: Deploy to Staging 

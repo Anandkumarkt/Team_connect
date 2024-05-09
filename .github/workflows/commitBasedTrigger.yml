@@ -52,8 +52,22 @@ jobs:
         uses: actions/checkout@v2
       - name: Execute shell script
         run: sh myscript.sh
-      
-    
+      - name: Set up SSH to remote 2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 192.168.126.63
+          port: 22
+          username: vvdn
+          key: ${{ secrets.PRIVATEKEY }}
+          command_timeout: 30m
+          script: | 
+            mkdir example_folder
+            echo "Folder 'example_folder' created successfully."  
+            cd /home/vvdn/Documents/apache/apache-tomcat-9.0.73/bin
+            ls
+            ./shutdown.sh
+            cp /home/vvdn/logs/*.war /home/vvdn/Documents/apache/apache-tomcat-9.0.73/webapps/
+            ./startup.sh
   DeployStaging:
   #To copy the war from development server to prod Jump box
     name: Deploy to Staging 

@@ -66,6 +66,7 @@ jobs:
             cd /home/vvdn/Documents/apache/apache-tomcat-9.0.73/bin
             ls
             ./shutdown.sh
+            sleep 30
             cp /home/vvdn/logs/*.war /home/vvdn/Documents/apache/apache-tomcat-9.0.73/webapps/
             ./startup.sh
   DeployStaging:

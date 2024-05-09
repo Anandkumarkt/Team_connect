@@ -53,12 +53,12 @@ jobs:
       - name: Execute shell script
         run: sh myscript.sh
       - name: Set up SSH to remote 2
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: 192.168.126.63
-          port: 22
           username: vvdn
           password : ${{secrets.PASSWORD}}
+          port: 22
           #key: ${{ secrets.SSH_PRIVATEKEY }}
           command_timeout: 30m
           script: | 

@@ -34,7 +34,7 @@ jobs:
         #with:
          # ssh-private-key: ${{ secrets.PRIVATEKEY }}
       - name: Copy war file
-        run: scp -i /home/vvdn/.ssh/git_action target/*.war vvdn@192.168.126.63:/home/vvdn/logs
+        run: scp -i ${{ secrets.PRIVATEKEY }} target/*.war vvdn@192.168.126.63:/home/vvdn/logs
         #run:  |
          # echo "Vickey\$123" | sudo -S scp target/*.war vvdn@192.168.126.63:/home/vvdn/logs
     

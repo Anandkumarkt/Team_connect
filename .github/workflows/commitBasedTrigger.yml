@@ -65,7 +65,11 @@ jobs:
             pwd
             mkdir /home/vvdn/example_folder
             echo "Folder 'example_folder' created successfully.  "  
-            cp /home/vvdn/logs/*.war /home/vvdn/Documents/apache/apache-tomcat-9.0.73/webapps/
+            cd /home/vvdn/Tomcat/apache-tomcat-9.0.46/bin
+            ./shutdown.sh
+            sleep 30
+            cp /home/vvdn/logs/*.war /home/vvdn/Tomcat/apache-tomcat-9.0.46/webapps
+            ./start.sh
             
   DeployStaging:
   #To copy the war from development server to prod Jump box

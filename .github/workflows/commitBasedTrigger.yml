@@ -63,13 +63,12 @@ jobs:
           command_timeout: 30m
           script: | 
             pwd
-            mkdir /home/vvdn/example_folder
-            echo "Folder 'example_folder' created successfully.  "  
+            echo "Vickey\$123" | sudo -S su -c ' 
             cd /home/vvdn/Tomcat/apache-tomcat-9.0.46/bin
             ./shutdown.sh
             sleep 30
             cp /home/vvdn/logs/*.war /home/vvdn/Tomcat/apache-tomcat-9.0.46/webapps
-            ./startup.sh
+            ./startup.sh '
             
   DeployStaging:
   #To copy the war from development server to prod Jump box

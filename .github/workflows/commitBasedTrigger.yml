@@ -8,57 +8,93 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Compile
-        run: echo Hello, world!
-        
-  NonProdStaging:
-    name: Deploy to NonProd Jump 
-    if: github.event_name == 'pull_request'
-    needs: [Build]
-    runs-on: ubuntu-latest
+#To build the war in Jump box
+  JumpBox:
+    if: github.event.ref == 'refs/heads/main'
+    runs-on: [self-hosted, linux]
     environment: 
       name: JumpServer-NP
       url: 'http://www.google.com'
     steps:
-      - name: Deploy
-        run: echo I am NonProd Staging deploying! 
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+      - name: SonarQube Scan
+        run: mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Build with Maven
+        run: mvn clean install
+      #- name: Set up SSH
+       # uses: webfactory/ssh-agent@v0.5.3
+        #with:
+         # ssh-private-key: ${{ secrets.PRIVATEKEY }}
+      - name: Copy war file
+        run: scp -i /home/vvdn/.ssh/git_action target/*.war vvdn@192.168.126.63:/home/vvdn/logs
+        #run:  |
+         # echo "Vickey\$123" | sudo -S scp target/*.war vvdn@192.168.126.63:/home/vvdn/logs
     
   DeployDev:
+  #To deploy the war in development server
     name: Deploy to Dev 
-    if: github.event_name == 'pull_request'
-    needs: [NonProdStaging]
-    runs-on: ubuntu-latest
+    #if: github.event.ref == 'refs/heads/main'
+    needs: [JumpBox]
+    runs-on: [self-hosted, linux]
     environment: 
       name: Development-CBT
       url: 'http://www.google.com'
     steps:
-      - name: Deploy
-        run: echo I am deploying! 
-    
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Execute shell script
+        run: sh myscript.sh
+      - name: Set up SSH to remote 
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 192.168.126.63
+          username: vvdn
+          #password : ${{secrets.PASSWORD}}
+          port: 22
+          key: ${{ secrets.SSH_PRIVATEKEY }}
+          command_timeout: 30m
+          script: | 
+            pwd
+            echo "Vickey\$123" | sudo -S su -c ' 
+            cd /home/vvdn/Tomcat/apache-tomcat-9.0.46/bin
+            ./shutdown.sh
+            sleep 30
+            cp /home/vvdn/logs/*.war /home/vvdn/Tomcat/apache-tomcat-9.0.46/webapps
+            ./startup.sh '
+            
   DeployStaging:
+  #To copy the war from development server to prod Jump box
     name: Deploy to Staging 
-    if: github.event.ref == 'refs/heads/main'
+    #if: github.event.ref == 'refs/heads/main'
     needs: [DeployDev]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     environment: 
       name: JumpServer-Prod
       url: 'http://test.myapp.com'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Deploy
         run: echo I am deploying! 
             
   DeployProd:
+  #To deploy the war in Production server
     name: Deploy to Production 
     needs: [DeployStaging]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux]
     environment: 
       name: Production-CBT
       url: 'http://www.myapp.com'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Deploy
-        run: echo I am deploying!
+        run: echo I am deploying
